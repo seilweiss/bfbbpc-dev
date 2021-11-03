@@ -1,0 +1,441 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{eb0e7b5c-9726-4ea6-92ec-b5cdc9576355}</ProjectGuid>
+    <RootNamespace>bfbbpc</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+    <TargetName>bfbb_debug</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)bin\</OutDir>
+    <IntDir>$(SolutionDir)obj\$(Configuration)\</IntDir>
+    <TargetName>bfbb_release</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;DEBUG;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;RWDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(RWGSDK)\include\d3d9;C:\dev\SDL2-2.0.14\include;$(ProjectDir)include;$(ProjectDir)src\Core\p2;$(ProjectDir)src\Core\x;$(ProjectDir)src\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(RWGSDK)\lib\d3d9\debug;C:\dev\SDL2-2.0.14\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rwcore.lib;rpworld.lib;rpcollis.lib;rpskin.lib;rphanim.lib;rpmatfx.lib;rpusrdat.lib;rpptank.lib;rtanim.lib;rtfsyst.lib;rtquat.lib;rtslerp.lib;SDL2.lib;SDL2main.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy C:\dev\SDL2-2.0.14\lib\x86\SDL2.dll $(OutDir) /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>false</ConformanceMode>
+      <AdditionalIncludeDirectories>$(RWGSDK)\include\d3d9;C:\dev\SDL2-2.0.14\include;$(ProjectDir)include;$(ProjectDir)src\Core\p2;$(ProjectDir)src\Core\x;$(ProjectDir)src\Game;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(RWGSDK)\lib\d3d9\release;C:\dev\SDL2-2.0.14\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>rwcore.lib;rpworld.lib;rpcollis.lib;rpskin.lib;rphanim.lib;rpmatfx.lib;rpusrdat.lib;rpptank.lib;rtanim.lib;rtfsyst.lib;rtquat.lib;rtslerp.lib;SDL2.lib;SDL2main.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy C:\dev\SDL2-2.0.14\lib\x86\SDL2.dll $(OutDir) /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Core\p2\iDraw.cpp" />
+    <ClCompile Include="src\Core\p2\iEnv.cpp" />
+    <ClCompile Include="src\Core\p2\iFile.cpp" />
+    <ClCompile Include="src\Core\p2\iLight.cpp" />
+    <ClCompile Include="src\Core\p2\iMath.cpp" />
+    <ClCompile Include="src\Core\p2\iMath3.cpp" />
+    <ClCompile Include="src\Core\p2\iMemMgr.cpp" />
+    <ClCompile Include="src\Core\p2\iModel.cpp" />
+    <ClCompile Include="src\Core\p2\iPad.cpp" />
+    <ClCompile Include="src\Core\p2\iScrFX.cpp" />
+    <ClCompile Include="src\Core\p2\iSnd.cpp" />
+    <ClCompile Include="src\Core\p2\iSystem.cpp" />
+    <ClCompile Include="src\Core\p2\iTime.cpp" />
+    <ClCompile Include="src\Core\p2\iTRC.cpp" />
+    <ClCompile Include="src\Core\x\iCamera.cpp" />
+    <ClCompile Include="src\Core\x\xAnim.cpp" />
+    <ClCompile Include="src\Core\x\xBase.cpp" />
+    <ClCompile Include="src\Core\x\xBehaveMgr.cpp" />
+    <ClCompile Include="src\Core\x\xbinio.cpp" />
+    <ClCompile Include="src\Core\x\xCamera.cpp" />
+    <ClCompile Include="src\Core\x\xClimate.cpp" />
+    <ClCompile Include="src\Core\x\xClumpColl.cpp" />
+    <ClCompile Include="src\Core\x\xCollide.cpp" />
+    <ClCompile Include="src\Core\x\xCollideFast.cpp" />
+    <ClCompile Include="src\Core\x\xCounter.cpp" />
+    <ClCompile Include="src\Core\x\xCutscene.cpp" />
+    <ClCompile Include="src\Core\x\xDebug.cpp" />
+    <ClCompile Include="src\Core\x\xDecal.cpp" />
+    <ClCompile Include="src\Core\x\xEnt.cpp" />
+    <ClCompile Include="src\Core\x\xEntBoulder.cpp" />
+    <ClCompile Include="src\Core\x\xEntMotion.cpp" />
+    <ClCompile Include="src\Core\x\xEnv.cpp" />
+    <ClCompile Include="src\Core\x\xEvent.cpp" />
+    <ClCompile Include="src\Core\x\xFFX.cpp" />
+    <ClCompile Include="src\Core\x\xFog.cpp" />
+    <ClCompile Include="src\Core\x\xFont.cpp" />
+    <ClCompile Include="src\Core\x\xFX.cpp" />
+    <ClCompile Include="src\Core\x\xGrid.cpp" />
+    <ClCompile Include="src\Core\x\xGroup.cpp" />
+    <ClCompile Include="src\Core\x\xhipio.cpp" />
+    <ClCompile Include="src\Core\x\xHudFontMeter.cpp" />
+    <ClCompile Include="src\Core\x\xHudModel.cpp" />
+    <ClCompile Include="src\Core\x\xHudText.cpp" />
+    <ClCompile Include="src\Core\x\xHudUnitMeter.cpp" />
+    <ClCompile Include="src\Core\x\xIni.cpp" />
+    <ClCompile Include="src\Core\x\xJSP.cpp" />
+    <ClCompile Include="src\Core\x\xLightKit.cpp" />
+    <ClCompile Include="src\Core\x\xMath.cpp" />
+    <ClCompile Include="src\Core\x\xMath3.cpp" />
+    <ClCompile Include="src\Core\x\xMemMgr.cpp" />
+    <ClCompile Include="src\Core\x\xModel.cpp" />
+    <ClCompile Include="src\Core\x\xModelBucket.cpp" />
+    <ClCompile Include="src\Core\x\xMovePoint.cpp" />
+    <ClCompile Include="src\Core\x\xordarray.cpp" />
+    <ClCompile Include="src\Core\x\xPad.cpp" />
+    <ClCompile Include="src\Core\x\xParEmitter.cpp" />
+    <ClCompile Include="src\Core\x\xParMgr.cpp" />
+    <ClCompile Include="src\Core\x\xParSys.cpp" />
+    <ClCompile Include="src\Core\x\xPartition.cpp" />
+    <ClCompile Include="src\Core\x\xpkrsvc.cpp" />
+    <ClCompile Include="src\Core\x\xPtankPool.cpp" />
+    <ClCompile Include="src\Core\x\xQuickCull.cpp" />
+    <ClCompile Include="src\Core\x\xsavegame.cpp" />
+    <ClCompile Include="src\Core\x\xScene.cpp" />
+    <ClCompile Include="src\Core\x\xScrFx.cpp" />
+    <ClCompile Include="src\Core\x\xserializer.cpp" />
+    <ClCompile Include="src\Core\x\xSFX.cpp" />
+    <ClCompile Include="src\Core\x\xShadow.cpp" />
+    <ClCompile Include="src\Core\x\xShadowSimple.cpp" />
+    <ClCompile Include="src\Core\x\xSkyDome.cpp" />
+    <ClCompile Include="src\Core\x\xSnd.cpp" />
+    <ClCompile Include="src\Core\x\xstransvc.cpp" />
+    <ClCompile Include="src\Core\x\xString.cpp" />
+    <ClCompile Include="src\Core\x\xSurface.cpp" />
+    <ClCompile Include="src\Core\x\xTimer.cpp" />
+    <ClCompile Include="src\Core\x\xTRC.cpp" />
+    <ClCompile Include="src\Core\x\xUpdateCull.cpp" />
+    <ClCompile Include="src\Core\x\xutil.cpp" />
+    <ClCompile Include="src\Core\x\xVec3.cpp" />
+    <ClCompile Include="src\Game\zActionLine.cpp" />
+    <ClCompile Include="src\Game\zAnimList.cpp" />
+    <ClCompile Include="src\Game\zAssetTypes.cpp" />
+    <ClCompile Include="src\Game\zBusStop.cpp" />
+    <ClCompile Include="src\Game\zCamera.cpp" />
+    <ClCompile Include="src\Game\zCameraFly.cpp" />
+    <ClCompile Include="src\Game\zCameraTweak.cpp" />
+    <ClCompile Include="src\Game\zCamMarker.cpp" />
+    <ClCompile Include="src\Game\zCollGeom.cpp" />
+    <ClCompile Include="src\Game\zConditional.cpp" />
+    <ClCompile Include="src\Game\zCutsceneMgr.cpp" />
+    <ClCompile Include="src\Game\zDiscoFloor.cpp" />
+    <ClCompile Include="src\Game\zDispatcher.cpp" />
+    <ClCompile Include="src\Game\zEGenerator.cpp" />
+    <ClCompile Include="src\Game\zEnt.cpp" />
+    <ClCompile Include="src\Game\zEntButton.cpp" />
+    <ClCompile Include="src\Game\zEntCruiseBubble.cpp" />
+    <ClCompile Include="src\Game\zEntDestructObj.cpp" />
+    <ClCompile Include="src\Game\zEntHangable.cpp" />
+    <ClCompile Include="src\Game\zEntPickup.cpp" />
+    <ClCompile Include="src\Game\zEntPlayer.cpp" />
+    <ClCompile Include="src\Game\zEntPlayerBungeeState.cpp" />
+    <ClCompile Include="src\Game\zEntPlayerOOBState.cpp" />
+    <ClCompile Include="src\Game\zEntSimpleObj.cpp" />
+    <ClCompile Include="src\Game\zEntTeleportBox.cpp" />
+    <ClCompile Include="src\Game\zEntTrigger.cpp" />
+    <ClCompile Include="src\Game\zEnv.cpp" />
+    <ClCompile Include="src\Game\zFeet.cpp" />
+    <ClCompile Include="src\Game\zFMV.cpp" />
+    <ClCompile Include="src\Game\zFX.cpp" />
+    <ClCompile Include="src\Game\zGame.cpp" />
+    <ClCompile Include="src\Game\zGameExtras.cpp" />
+    <ClCompile Include="src\Game\zGameState.cpp" />
+    <ClCompile Include="src\Game\zGoo.cpp" />
+    <ClCompile Include="src\Game\zGrid.cpp" />
+    <ClCompile Include="src\Game\zGust.cpp" />
+    <ClCompile Include="src\Game\zLasso.cpp" />
+    <ClCompile Include="src\Game\zLight.cpp" />
+    <ClCompile Include="src\Game\zLightning.cpp" />
+    <ClCompile Include="src\Game\zLOD.cpp" />
+    <ClCompile Include="src\Game\zMain.cpp" />
+    <ClCompile Include="src\Game\zMenu.cpp" />
+    <ClCompile Include="src\Game\zMovePoint.cpp" />
+    <ClCompile Include="src\Game\zMusic.cpp" />
+    <ClCompile Include="src\Game\zNPCMgr.cpp" />
+    <ClCompile Include="src\Game\zNPCTypeBossPatrick.cpp" />
+    <ClCompile Include="src\Game\zNPCTypeBossSandy.cpp" />
+    <ClCompile Include="src\Game\zNPCTypeTiki.cpp" />
+    <ClCompile Include="src\Game\zParCmd.cpp" />
+    <ClCompile Include="src\Game\zParEmitter.cpp" />
+    <ClCompile Include="src\Game\zParPTank.cpp" />
+    <ClCompile Include="src\Game\zPendulum.cpp" />
+    <ClCompile Include="src\Game\zPickupTable.cpp" />
+    <ClCompile Include="src\Game\zPlatform.cpp" />
+    <ClCompile Include="src\Game\zPortal.cpp" />
+    <ClCompile Include="src\Game\zRenderState.cpp" />
+    <ClCompile Include="src\Game\zSaveLoad.cpp" />
+    <ClCompile Include="src\Game\zScene.cpp" />
+    <ClCompile Include="src\Game\zScript.cpp" />
+    <ClCompile Include="src\Game\zShrapnel.cpp" />
+    <ClCompile Include="src\Game\zSurface.cpp" />
+    <ClCompile Include="src\Game\zTalkBox.cpp" />
+    <ClCompile Include="src\Game\zTaskBox.cpp" />
+    <ClCompile Include="src\Game\zTaxi.cpp" />
+    <ClCompile Include="src\Game\zTextBox.cpp" />
+    <ClCompile Include="src\Game\zThrown.cpp" />
+    <ClCompile Include="src\Game\zUI.cpp" />
+    <ClCompile Include="src\Game\zUIFont.cpp" />
+    <ClCompile Include="src\Game\zVar.cpp" />
+    <ClCompile Include="src\Game\zVolume.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\types.h" />
+    <ClInclude Include="src\Core\p2\iColor.h" />
+    <ClInclude Include="src\Core\p2\iDraw.h" />
+    <ClInclude Include="src\Core\p2\iEnv.h" />
+    <ClInclude Include="src\Core\p2\iFile.h" />
+    <ClInclude Include="src\Core\p2\iFog.h" />
+    <ClInclude Include="src\Core\p2\iLight.h" />
+    <ClInclude Include="src\Core\p2\iMath.h" />
+    <ClInclude Include="src\Core\p2\iMath3.h" />
+    <ClInclude Include="src\Core\p2\iMemMgr.h" />
+    <ClInclude Include="src\Core\p2\iModel.h" />
+    <ClInclude Include="src\Core\p2\iPad.h" />
+    <ClInclude Include="src\Core\p2\iScrFX.h" />
+    <ClInclude Include="src\Core\p2\iSnd.h" />
+    <ClInclude Include="src\Core\p2\iSystem.h" />
+    <ClInclude Include="src\Core\p2\iTime.h" />
+    <ClInclude Include="src\Core\p2\iTRC.h" />
+    <ClInclude Include="src\Core\x\iCamera.h" />
+    <ClInclude Include="src\Core\x\xAnim.h" />
+    <ClInclude Include="src\Core\x\xBase.h" />
+    <ClInclude Include="src\Core\x\xBehaveMgr.h" />
+    <ClInclude Include="src\Core\x\xbinio.h" />
+    <ClInclude Include="src\Core\x\xBound.h" />
+    <ClInclude Include="src\Core\x\xCamera.h" />
+    <ClInclude Include="src\Core\x\xClimate.h" />
+    <ClInclude Include="src\Core\x\xClumpColl.h" />
+    <ClInclude Include="src\Core\x\xCollide.h" />
+    <ClInclude Include="src\Core\x\xCollideFast.h" />
+    <ClInclude Include="src\Core\x\xColor.h" />
+    <ClInclude Include="src\Core\x\xCounter.h" />
+    <ClInclude Include="src\Core\x\xCurveAsset.h" />
+    <ClInclude Include="src\Core\x\xCutscene.h" />
+    <ClInclude Include="src\Core\x\xDebug.h" />
+    <ClInclude Include="src\Core\x\xDecal.h" />
+    <ClInclude Include="src\Core\x\xDraw.h" />
+    <ClInclude Include="src\Core\x\xDynAsset.h" />
+    <ClInclude Include="src\Core\x\xEnt.h" />
+    <ClInclude Include="src\Core\x\xEntBoulder.h" />
+    <ClInclude Include="src\Core\x\xEntDrive.h" />
+    <ClInclude Include="src\Core\x\xEntMotion.h" />
+    <ClInclude Include="src\Core\x\xEnv.h" />
+    <ClInclude Include="src\Core\x\xEvent.h" />
+    <ClInclude Include="src\Core\x\xFactory.h" />
+    <ClInclude Include="src\Core\x\xFFX.h" />
+    <ClInclude Include="src\Core\x\xFile.h" />
+    <ClInclude Include="src\Core\x\xFog.h" />
+    <ClInclude Include="src\Core\x\xFont.h" />
+    <ClInclude Include="src\Core\x\xFX.h" />
+    <ClInclude Include="src\Core\x\xGlobals.h" />
+    <ClInclude Include="src\Core\x\xGrid.h" />
+    <ClInclude Include="src\Core\x\xGroup.h" />
+    <ClInclude Include="src\Core\x\xhipio.h" />
+    <ClInclude Include="src\Core\x\xHud.h" />
+    <ClInclude Include="src\Core\x\xHudFontMeter.h" />
+    <ClInclude Include="src\Core\x\xHudMeter.h" />
+    <ClInclude Include="src\Core\x\xHudModel.h" />
+    <ClInclude Include="src\Core\x\xHudText.h" />
+    <ClInclude Include="src\Core\x\xHudUnitMeter.h" />
+    <ClInclude Include="src\Core\x\xIni.h" />
+    <ClInclude Include="src\Core\x\xJSP.h" />
+    <ClInclude Include="src\Core\x\xLightKit.h" />
+    <ClInclude Include="src\Core\x\xLinkAsset.h" />
+    <ClInclude Include="src\Core\x\xMarkerAsset.h" />
+    <ClInclude Include="src\Core\x\xMath.h" />
+    <ClInclude Include="src\Core\x\xMath2.h" />
+    <ClInclude Include="src\Core\x\xMath3.h" />
+    <ClInclude Include="src\Core\x\xMathInlines.h" />
+    <ClInclude Include="src\Core\x\xMemMgr.h" />
+    <ClInclude Include="src\Core\x\xMgr.h" />
+    <ClInclude Include="src\Core\x\xModel.h" />
+    <ClInclude Include="src\Core\x\xModelBucket.h" />
+    <ClInclude Include="src\Core\x\xMovePoint.h" />
+    <ClInclude Include="src\Core\x\xNPCBasic.h" />
+    <ClInclude Include="src\Core\x\xordarray.h" />
+    <ClInclude Include="src\Core\x\xPad.h" />
+    <ClInclude Include="src\Core\x\xPar.h" />
+    <ClInclude Include="src\Core\x\xParCmd.h" />
+    <ClInclude Include="src\Core\x\xParEmitter.h" />
+    <ClInclude Include="src\Core\x\xParEmitterType.h" />
+    <ClInclude Include="src\Core\x\xParGroup.h" />
+    <ClInclude Include="src\Core\x\xParMgr.h" />
+    <ClInclude Include="src\Core\x\xParSys.h" />
+    <ClInclude Include="src\Core\x\xPartition.h" />
+    <ClInclude Include="src\Core\x\xPtankPool.h" />
+    <ClInclude Include="src\Core\x\xQuickCull.h" />
+    <ClInclude Include="src\Core\x\xRMemData.h" />
+    <ClInclude Include="src\Core\x\xRumble.h" />
+    <ClInclude Include="src\Core\x\xsavegame.h" />
+    <ClInclude Include="src\Core\x\xScene.h" />
+    <ClInclude Include="src\Core\x\xScrFx.h" />
+    <ClInclude Include="src\Core\x\xserializer.h" />
+    <ClInclude Include="src\Core\x\xSFX.h" />
+    <ClInclude Include="src\Core\x\xShadow.h" />
+    <ClInclude Include="src\Core\x\xShadowSimple.h" />
+    <ClInclude Include="src\Core\x\xSkyDome.h" />
+    <ClInclude Include="src\Core\x\xSnd.h" />
+    <ClInclude Include="src\Core\x\xSpline.h" />
+    <ClInclude Include="src\Core\x\xstransvc.h" />
+    <ClInclude Include="src\Core\x\xString.h" />
+    <ClInclude Include="src\Core\x\xSurface.h" />
+    <ClInclude Include="src\Core\x\xSystem.h" />
+    <ClInclude Include="src\Core\x\xTimer.h" />
+    <ClInclude Include="src\Core\x\xTRC.h" />
+    <ClInclude Include="src\Core\x\xUpdateCull.h" />
+    <ClInclude Include="src\Core\x\xutil.h" />
+    <ClInclude Include="src\Core\x\xVec2.h" />
+    <ClInclude Include="src\Core\x\xVec3.h" />
+    <ClInclude Include="src\Core\x\xVec3Inlines.h" />
+    <ClInclude Include="src\Core\x\xVec4.h" />
+    <ClInclude Include="src\Core\x\xpkrsvc.h" />
+    <ClInclude Include="src\Core\x\xVolume.h" />
+    <ClInclude Include="src\Game\zActionLine.h" />
+    <ClInclude Include="src\Game\zAnimList.h" />
+    <ClInclude Include="src\Game\zAssetTypes.h" />
+    <ClInclude Include="src\Game\zBase.h" />
+    <ClInclude Include="src\Game\zBusStop.h" />
+    <ClInclude Include="src\Game\zCamera.h" />
+    <ClInclude Include="src\Game\zCameraFly.h" />
+    <ClInclude Include="src\Game\zCameraTweak.h" />
+    <ClInclude Include="src\Game\zCamMarker.h" />
+    <ClInclude Include="src\Game\zCheckPoint.h" />
+    <ClInclude Include="src\Game\zCollGeom.h" />
+    <ClInclude Include="src\Game\zConditional.h" />
+    <ClInclude Include="src\Game\zCutsceneMgr.h" />
+    <ClInclude Include="src\Game\zDiscoFloor.h" />
+    <ClInclude Include="src\Game\zDispatcher.h" />
+    <ClInclude Include="src\Game\zEGenerator.h" />
+    <ClInclude Include="src\Game\zEnt.h" />
+    <ClInclude Include="src\Game\zEntButton.h" />
+    <ClInclude Include="src\Game\zEntCruiseBubble.h" />
+    <ClInclude Include="src\Game\zEntDestructObj.h" />
+    <ClInclude Include="src\Game\zEntHangable.h" />
+    <ClInclude Include="src\Game\zEntPickup.h" />
+    <ClInclude Include="src\Game\zEntPlayer.h" />
+    <ClInclude Include="src\Game\zEntPlayerBungeeState.h" />
+    <ClInclude Include="src\Game\zEntPlayerOOBState.h" />
+    <ClInclude Include="src\Game\zEntSimpleObj.h" />
+    <ClInclude Include="src\Game\zEntTeleportBox.h" />
+    <ClInclude Include="src\Game\zEntTrigger.h" />
+    <ClInclude Include="src\Game\zEnv.h" />
+    <ClInclude Include="src\Game\zFeet.h" />
+    <ClInclude Include="src\Game\zFMV.h" />
+    <ClInclude Include="src\Game\zFX.h" />
+    <ClInclude Include="src\Game\zGame.h" />
+    <ClInclude Include="src\Game\zGameExtras.h" />
+    <ClInclude Include="src\Game\zGameState.h" />
+    <ClInclude Include="src\Game\zGlobals.h" />
+    <ClInclude Include="src\Game\zGlobalSettings.h" />
+    <ClInclude Include="src\Game\zGoo.h" />
+    <ClInclude Include="src\Game\zGrid.h" />
+    <ClInclude Include="src\Game\zGust.h" />
+    <ClInclude Include="src\Game\zLasso.h" />
+    <ClInclude Include="src\Game\zLight.h" />
+    <ClInclude Include="src\Game\zLightning.h" />
+    <ClInclude Include="src\Game\zLOD.h" />
+    <ClInclude Include="src\Game\zMain.h" />
+    <ClInclude Include="src\Game\zMenu.h" />
+    <ClInclude Include="src\Game\zMovePoint.h" />
+    <ClInclude Include="src\Game\zMusic.h" />
+    <ClInclude Include="src\Game\zNPCMgr.h" />
+    <ClInclude Include="src\Game\zNPCTypeBossPatrick.h" />
+    <ClInclude Include="src\Game\zNPCTypeBossSandy.h" />
+    <ClInclude Include="src\Game\zNPCTypeTiki.h" />
+    <ClInclude Include="src\Game\zParCmd.h" />
+    <ClInclude Include="src\Game\zParEmitter.h" />
+    <ClInclude Include="src\Game\zParPTank.h" />
+    <ClInclude Include="src\Game\zParSys.h" />
+    <ClInclude Include="src\Game\zPendulum.h" />
+    <ClInclude Include="src\Game\zPickupTable.h" />
+    <ClInclude Include="src\Game\zPlatform.h" />
+    <ClInclude Include="src\Game\zPortal.h" />
+    <ClInclude Include="src\Game\zRenderState.h" />
+    <ClInclude Include="src\Game\zSaveLoad.h" />
+    <ClInclude Include="src\Game\zScene.h" />
+    <ClInclude Include="src\Game\zScript.h" />
+    <ClInclude Include="src\Game\zShrapnel.h" />
+    <ClInclude Include="src\Game\zSurface.h" />
+    <ClInclude Include="src\Game\zTalkBox.h" />
+    <ClInclude Include="src\Game\zTaskBox.h" />
+    <ClInclude Include="src\Game\zTaxi.h" />
+    <ClInclude Include="src\Game\zTextBox.h" />
+    <ClInclude Include="src\Game\zThrown.h" />
+    <ClInclude Include="src\Game\zUI.h" />
+    <ClInclude Include="src\Game\zUIFont.h" />
+    <ClInclude Include="src\Game\zVar.h" />
+    <ClInclude Include="src\Game\zVolume.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
