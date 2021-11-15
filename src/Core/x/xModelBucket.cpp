@@ -25,6 +25,11 @@ STUB void xModelBucket_Init()
 
 }
 
+STUB xModelBucket** xModelBucket_GetBuckets(RpAtomic* data)
+{
+    return NULL;
+}
+
 STUB void xModelBucket_RenderAlphaBegin()
 {
 

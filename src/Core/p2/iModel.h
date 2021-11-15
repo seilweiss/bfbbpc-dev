@@ -8,6 +8,7 @@
 
 struct xModelTag;
 
+void iModelInit();
 RpAtomic* iModelFile_RWMultiAtomic(RpAtomic* model);
 uint32 iModelNumBones(RpAtomic* model);
 uint32 iModelTagSetup(xModelTag* tag, RpAtomic* model, float32 x, float32 y, float32 z);

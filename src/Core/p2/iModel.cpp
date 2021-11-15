@@ -6,6 +6,9 @@
 #include <rpskin.h>
 #include <rpusrdat.h>
 
+static RpLight* sEmptyDirectionalLight[4];
+static RpLight* sEmptyAmbientLight;
+
 UNCHECKED static RwFrame* GetChildFrameHierarchy(RwFrame* frame, void* data)
 {
 	RpHAnimHierarchy* hierarchy = RpHAnimFrameGetHierarchy(frame);
@@ -31,6 +34,31 @@ UNCHECKED static RpHAnimHierarchy* GetHierarchy(RpAtomic* model)
 	GetChildFrameHierarchy(RpAtomicGetFrame(model), &hierarchy);
 
 	return hierarchy;
+}
+
+UNCHECKED void iModelInit()
+{
+	RwFrame* frame;
+	RwRGBAReal black = { 0, 0, 0, 0 };
+	int32 i;
+
+	if (!sEmptyDirectionalLight[0])
+	{
+		for (i = 0; i < 4; i++)
+		{
+			sEmptyDirectionalLight[i] = RpLightCreate(rpLIGHTDIRECTIONAL);
+
+			RpLightSetColor(sEmptyDirectionalLight[i], &black);
+
+			frame = RwFrameCreate();
+
+			RpLightSetFrame(sEmptyDirectionalLight[i], frame);
+		}
+
+		sEmptyAmbientLight = RpLightCreate(rpLIGHTAMBIENT);
+
+		RpLightSetColor(sEmptyAmbientLight, &black);
+	}
 }
 
 UNCHECKED static RpAtomic* NextAtomicCallback(RpAtomic* atomic, void* data)

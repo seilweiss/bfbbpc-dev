@@ -17,6 +17,7 @@ void xModelBucket_PreCountBucket(RpAtomic* data, uint32 pipeFlags, uint32 subObj
 void xModelBucket_PreCountAlloc(int32 maxAlphaModels);
 void xModelBucket_InsertBucket(RpAtomic* data, uint32 pipeFlags, uint32 subObjects);
 void xModelBucket_Init();
+xModelBucket** xModelBucket_GetBuckets(RpAtomic* data);
 void xModelBucket_RenderAlphaBegin();
 void xModelBucket_RenderAlphaLayer(int32 maxLayer);
 void xModelBucket_RenderAlphaEnd();

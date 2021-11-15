@@ -103,6 +103,7 @@ extern int32 xModelLookupCount;
 extern xModelPipeLookup* xModelLookupList;
 extern bool32 xModelInstStaticAlloc;
 
+uint32 xModelGetPipeFlags(RpAtomic* model);
 void xModelInit();
 void xModelPoolInit(uint32 count, uint32 numMatrices);
 xModelInstance* xModelInstanceAlloc(RpAtomic* data, void* object, uint16 flags, uint8 boneIndex, uint8* boneRemap);
