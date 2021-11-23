@@ -2,6 +2,7 @@
 
 #include "xstransvc.h"
 #include "xJSP.h"
+#include "iModel.h"
 
 static void* Model_Read(void* userdata, uint32 assetid, void* indata, uint32 insize, uint32* outsize);
 static void* Curve_Read(void* userdata, uint32 assetid, void* indata, uint32 insize, uint32* outsize);
@@ -102,6 +103,19 @@ static PACKER_ASSETTYPE assetTypeHandlers[] =
     0
 };
 
+struct HackModelRadius
+{
+    uint32 assetid;
+    float32 radius;
+};
+
+static HackModelRadius hackRadiusTable[] =
+{
+    { 0xFA77E6FA, 20.0f },
+    { 0x5BD0EDAC, 1000.0f },
+    { 0xED21A1C6, 50.0f }
+};
+
 static xJSPHeader* sTempJSP = NULL;
 static xJSPHeader sDummyEmptyJSP;
 
@@ -118,9 +132,34 @@ void zAssetShutdown()
     xSTShutdown();
 }
 
-STUB static void* Model_Read(void*, uint32, void* indata, uint32 insize, uint32* outsize)
+UNCHECKED static void* Model_Read(void*, uint32 assetid, void* indata, uint32 insize, uint32* outsize)
 {
-    return NULL;
+    RpAtomic* model = iModelFileNew(indata, insize);
+
+    *outsize = sizeof(RpAtomic);
+
+    for (uint32 i = 0; i < ARRAYCOUNT(hackRadiusTable); i++)
+    {
+        if (assetid == hackRadiusTable[i].assetid)
+        {
+            RpAtomic* tmpModel = model;
+
+            while (tmpModel)
+            {
+                tmpModel->boundingSphere.radius = hackRadiusTable[i].radius;
+                tmpModel->boundingSphere.center.x = 0.0f;
+                tmpModel->boundingSphere.center.y = 0.0f;
+                tmpModel->boundingSphere.center.z = 0.0f;
+                tmpModel->interpolator.flags &= rpINTERPOLATORDIRTYSPHERE;
+
+                tmpModel = iModelFile_RWMultiAtomic(tmpModel);
+            }
+
+            break;
+        }
+    }
+
+    return model;
 }
 
 STUB static void* Curve_Read(void*, uint32, void* indata, uint32 insize, uint32* outsize)

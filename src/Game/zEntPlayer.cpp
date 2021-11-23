@@ -72,290 +72,290 @@ STUB static void load_player_ini()
 
 UNCHECKED void zEntPlayer_Init(xEnt* ent, xEntAsset* asset)
 {
-	zEntInit((zEnt*)ent, asset, 'PLYR');
+    zEntInit((zEnt*)ent, asset, 'PLYR');
 
-	xEntInitShadow(*ent, globals.player.entShadow_embedded);
-	ent->simpShadow = &globals.player.simpShadow_embedded;
-	xShadowSimple_CacheInit(ent->simpShadow, ent, 80);
+    xEntInitShadow(*ent, globals.player.entShadow_embedded);
+    ent->simpShadow = &globals.player.simpShadow_embedded;
+    xShadowSimple_CacheInit(ent->simpShadow, ent, 80);
 
-	if (zEntPlayer_GetLightKitID(ent, asset) != 0)
-	{
-		ent->lightKit = (xLightKit*)xSTFindAsset(zEntPlayer_GetLightKitID(ent, asset));
+    if (zEntPlayer_GetLightKitID(ent, asset) != 0)
+    {
+        ent->lightKit = (xLightKit*)xSTFindAsset(zEntPlayer_GetLightKitID(ent, asset));
 
-		if (ent->lightKit && ent->lightKit->tagID != 'TIKL')
-		{
-			ent->lightKit = NULL;
-		}
-	}
+        if (ent->lightKit && ent->lightKit->tagID != 'TIKL')
+        {
+            ent->lightKit = NULL;
+        }
+    }
 
-	globals.player.model_spongebob = ent->model;
+    globals.player.model_spongebob = ent->model;
 
-	memset(globals.player.sb_models, 0, sizeof(globals.player.sb_models));
+    memset(globals.player.sb_models, 0, sizeof(globals.player.sb_models));
 
-	{
-		uint8 index = 0;
-		xModelInstance* m = globals.player.model_spongebob;
+    {
+        uint8 index = 0;
+        xModelInstance* m = globals.player.model_spongebob;
 
-		while (m)
-		{
-			for (int32 i = 0; i < SB_MODEL_COUNT; i++)
-			{
-				if (globals.player.sb_model_indices[i] == index)
-				{
-					globals.player.sb_models[i] = m;
-				}
-			}
+        while (m)
+        {
+            for (int32 i = 0; i < SB_MODEL_COUNT; i++)
+            {
+                if (globals.player.sb_model_indices[i] == index)
+                {
+                    globals.player.sb_models[i] = m;
+                }
+            }
 
-			m = m->Next;
-			index++;
-		}
-	}
+            m = m->Next;
+            index++;
+        }
+    }
 
-	PlayerHackFixBbashMiss(globals.player.model_spongebob);
+    PlayerHackFixBbashMiss(globals.player.model_spongebob);
 
-	globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Parent = globals.player.model_spongebob;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Parent = globals.player.model_spongebob;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Parent = globals.player.model_spongebob;
-	globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Parent = globals.player.model_spongebob;
-	
-	globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Flags = 0x2000;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Flags = 0x2000;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Flags = 0x2000;
-	globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Flags = 0x2000;
+    globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Parent = globals.player.model_spongebob;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Parent = globals.player.model_spongebob;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Parent = globals.player.model_spongebob;
+    globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Parent = globals.player.model_spongebob;
 
-	globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Mat = globals.player.model_spongebob->Mat;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Mat = globals.player.model_spongebob->Mat;
-	globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Mat = globals.player.model_spongebob->Mat;
-	globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Mat = globals.player.model_spongebob->Mat;
-	
-	globals.player.model_wand = globals.player.sb_models[SB_MODEL_WAND];
+    globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Flags = 0x2000;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Flags = 0x2000;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Flags = 0x2000;
+    globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Flags = 0x2000;
 
-	iModelTagSetup(&globals.player.BubbleWandTag[0], globals.player.model_wand->Data, -0.604f, 0.46f, 0.63f);
-	iModelTagSetup(&globals.player.BubbleWandTag[1], globals.player.model_wand->Data, -0.563f, 0.427f, 0.294f);
-	
-	iModelTagSetup(&sSpongeBobLFoot, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_L]->Data, 0.119f, 0.043f, -0.032f);
-	iModelTagSetup(&sSpongeBobRFoot, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_R]->Data, -0.119f, 0.043f, -0.032f);
-	iModelTagSetup(&sSpongeBobLKnee, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_L]->Data, 0.119f, 0.161f, 0.024f);
-	iModelTagSetup(&sSpongeBobRKnee, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_R]->Data, -0.118f, 0.161f, 0.024f);
-	iModelTagSetup(&sSpongeBobLHand, globals.player.sb_models[SB_MODEL_ARM_L]->Data, 0.55f, 0.496f, 0.02f);
-	iModelTagSetup(&sSpongeBobRHand, globals.player.sb_models[SB_MODEL_ARM_R]->Data, -0.55f, 0.496f, -0.011f);
-	iModelTagSetup(&sSpongeBobRElbow, globals.player.sb_models[SB_MODEL_ARM_R]->Data, -0.442f, 0.458f, -0.007f);
-	iModelTagSetup(&sSpongeBobLElbow, globals.player.sb_models[SB_MODEL_ARM_L]->Data, 0.43f, 0.458f, -0.004f);
-	
-	iModelTagSetup(&sStankTag[0], globals.player.ent.model->Data, -0.014f, 0.546f, 0.168f);
+    globals.player.sb_models[SB_MODEL_SHADOW_BODY]->Mat = globals.player.model_spongebob->Mat;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_L]->Mat = globals.player.model_spongebob->Mat;
+    globals.player.sb_models[SB_MODEL_SHADOW_ARM_R]->Mat = globals.player.model_spongebob->Mat;
+    globals.player.sb_models[SB_MODEL_SHADOW_WAND]->Mat = globals.player.model_spongebob->Mat;
 
-	sEmitSpinBubbles = zParEmitterFind("PAREMIT_GRAB_BUBBLES");
-	sEmitSundae = zParEmitterFind("PAREMIT_CLOUD");
-	sEmitStankBreath = zParEmitterFind("PAREMIT_STANK");
-	gEmitBFX = zParEmitterFind("PAREMIT_BFX");
+    globals.player.model_wand = globals.player.sb_models[SB_MODEL_WAND];
 
-	sLassoInfo = &globals.player.lassoInfo;
-	sLasso = &sLassoInfo->lasso;
+    iModelTagSetup(&globals.player.BubbleWandTag[0], globals.player.model_wand->Data, -0.604f, 0.46f, 0.63f);
+    iModelTagSetup(&globals.player.BubbleWandTag[1], globals.player.model_wand->Data, -0.563f, 0.427f, 0.294f);
 
-	{
-		float32 bbncvtm = globals.player.g.BBashTime - globals.player.g.BBashCVTime;
+    iModelTagSetup(&sSpongeBobLFoot, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_L]->Data, 0.119f, 0.043f, -0.032f);
+    iModelTagSetup(&sSpongeBobRFoot, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_R]->Data, -0.119f, 0.043f, -0.032f);
+    iModelTagSetup(&sSpongeBobLKnee, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_L]->Data, 0.119f, 0.161f, 0.024f);
+    iModelTagSetup(&sSpongeBobRKnee, globals.player.sb_models[SB_MODEL_BUBBLE_SHOE_R]->Data, -0.118f, 0.161f, 0.024f);
+    iModelTagSetup(&sSpongeBobLHand, globals.player.sb_models[SB_MODEL_ARM_L]->Data, 0.55f, 0.496f, 0.02f);
+    iModelTagSetup(&sSpongeBobRHand, globals.player.sb_models[SB_MODEL_ARM_R]->Data, -0.55f, 0.496f, -0.011f);
+    iModelTagSetup(&sSpongeBobRElbow, globals.player.sb_models[SB_MODEL_ARM_R]->Data, -0.442f, 0.458f, -0.007f);
+    iModelTagSetup(&sSpongeBobLElbow, globals.player.sb_models[SB_MODEL_ARM_L]->Data, 0.43f, 0.458f, -0.004f);
 
-		bbash_vel = (0.5f * globals.player.g.Gravity * SQR(bbncvtm) + globals.player.g.BBashHeight) / globals.player.g.BBashTime;
-	}
-	
-	{
-		uint32 bufsize;
-		void* info;
-		
-		info = xSTFindAsset(0x791025AC, &bufsize);
+    iModelTagSetup(&sStankTag[0], globals.player.ent.model->Data, -0.014f, 0.546f, 0.168f);
 
-		if (info)
-		{
-			globals.player.model_patrick = zEntRecurseModelInfo(info, ent);
+    sEmitSpinBubbles = zParEmitterFind("PAREMIT_GRAB_BUBBLES");
+    sEmitSundae = zParEmitterFind("PAREMIT_CLOUD");
+    sEmitStankBreath = zParEmitterFind("PAREMIT_STANK");
+    gEmitBFX = zParEmitterFind("PAREMIT_BFX");
 
-			iModelTagSetup(&sPatrickMelee, globals.player.model_patrick->Data, 0.0f, 0.475f, 0.252f);
-			iModelTagSetup(&sPatrickLFoot, globals.player.model_patrick->Data, 0.187f, 0.0f, -0.068f);
-			iModelTagSetup(&sPatrickRFoot, globals.player.model_patrick->Data, -0.187f, 0.0f, -0.068f);
-			iModelTagSetup(&sPatrickLKnee, globals.player.model_patrick->Data, 0.19f, 0.099f, -0.138f);
-			iModelTagSetup(&sPatrickRKnee, globals.player.model_patrick->Data, -0.19f, 0.099f, -0.138f);
-			iModelTagSetup(&sPatrickRHand, globals.player.model_patrick->Data, -0.632f, 0.711f, -0.235f);
-			iModelTagSetup(&sPatrickLHand, globals.player.model_patrick->Data, 0.684f, 0.694f, -0.215f);
-			iModelTagSetup(&sPatrickRElbow, globals.player.model_patrick->Data, -0.475f, 0.733f, -0.269f);
-			iModelTagSetup(&sPatrickLElbow, globals.player.model_patrick->Data, 0.475f, 0.733f, -0.269f);
-		}
-		else
-		{
-			globals.player.model_patrick = NULL;
-		}
+    sLassoInfo = &globals.player.lassoInfo;
+    sLasso = &sLassoInfo->lasso;
 
-		info = xSTFindAsset(0xC0E34B23, &bufsize);
+    {
+        float32 bbncvtm = globals.player.g.BBashTime - globals.player.g.BBashCVTime;
 
-		if (info)
-		{
-			globals.player.model_sandy = zEntRecurseModelInfo(info, ent);
+        bbash_vel = (0.5f * globals.player.g.Gravity * SQR(bbncvtm) + globals.player.g.BBashHeight) / globals.player.g.BBashTime;
+    }
 
-			zLasso_Init(sLasso, globals.player.model_sandy, -0.599f, 0.645f, 0.051f);
+    {
+        uint32 bufsize;
+        void* info;
 
-			iModelTagSetup(&sSandyLFoot, globals.player.model_sandy->Data, 0.159f, 0.0f, 0.045f);
-			iModelTagSetup(&sSandyRFoot, globals.player.model_sandy->Data, -0.012f, 0.0f, 0.258f);
-			iModelTagSetup(&sSandyLKnee, globals.player.model_sandy->Data, 0.129f, 0.287f, 0.089f);
-			iModelTagSetup(&sSandyRKnee, globals.player.model_sandy->Data, -0.071f, -0.071f, 0.089f);
-			iModelTagSetup(&sSandyRHand, globals.player.model_sandy->Data, -0.642f, 0.747f, 0.006f);
-			iModelTagSetup(&sSandyLHand, globals.player.model_sandy->Data, 0.641f, 0.747f, 0.006f);
-			iModelTagSetup(&sSandyRElbow, globals.player.model_sandy->Data, -0.37f, 0.661f, 0.086f);
-			iModelTagSetup(&sSandyLElbow, globals.player.model_sandy->Data, 0.37f, 0.661f, 0.086f);
-		}
-		else
-		{
-			globals.player.model_sandy = NULL;
-		}
-	}
+        info = xSTFindAsset(0x791025AC, &bufsize);
 
-	static void** drybob_chgData[64];
-	static void* drybob_oldData[64];
-	static float32* drybob_chgTime[64];
-	static float32 drybob_oldTime[64];
-	static int32 drybob_anim_count = 0;
+        if (info)
+        {
+            globals.player.model_patrick = zEntRecurseModelInfo(info, ent);
 
-	for (int32 i = 0; i < drybob_anim_count; i++)
-	{
-		*drybob_chgData[i] = drybob_oldData[i];
-		*drybob_chgTime[i] = drybob_oldTime[i];
-	}
+            iModelTagSetup(&sPatrickMelee, globals.player.model_patrick->Data, 0.0f, 0.475f, 0.252f);
+            iModelTagSetup(&sPatrickLFoot, globals.player.model_patrick->Data, 0.187f, 0.0f, -0.068f);
+            iModelTagSetup(&sPatrickRFoot, globals.player.model_patrick->Data, -0.187f, 0.0f, -0.068f);
+            iModelTagSetup(&sPatrickLKnee, globals.player.model_patrick->Data, 0.19f, 0.099f, -0.138f);
+            iModelTagSetup(&sPatrickRKnee, globals.player.model_patrick->Data, -0.19f, 0.099f, -0.138f);
+            iModelTagSetup(&sPatrickRHand, globals.player.model_patrick->Data, -0.632f, 0.711f, -0.235f);
+            iModelTagSetup(&sPatrickLHand, globals.player.model_patrick->Data, 0.684f, 0.694f, -0.215f);
+            iModelTagSetup(&sPatrickRElbow, globals.player.model_patrick->Data, -0.475f, 0.733f, -0.269f);
+            iModelTagSetup(&sPatrickLElbow, globals.player.model_patrick->Data, 0.475f, 0.733f, -0.269f);
+        }
+        else
+        {
+            globals.player.model_patrick = NULL;
+        }
 
-	drybob_anim_count = 0;
-	
-	{
-		RpAtomic* armL = (RpAtomic*)xSTFindAsset(xStrHash("spongebob_bind_treedome.dff"));
+        info = xSTFindAsset(0xC0E34B23, &bufsize);
 
-		if (armL)
-		{
-			RpAtomic* armR = iModelFile_RWMultiAtomic(armR);
-			RpAtomic* body = iModelFile_RWMultiAtomic(iModelFile_RWMultiAtomic(armR));
+        if (info)
+        {
+            globals.player.model_sandy = zEntRecurseModelInfo(info, ent);
 
-			globals.player.sb_models[SB_MODEL_ARM_L]->Data = armL;
-			globals.player.sb_models[SB_MODEL_ARM_R]->Data = armR;
-			globals.player.sb_models[SB_MODEL_BODY]->Data = body;
+            zLasso_Init(sLasso, globals.player.model_sandy, -0.599f, 0.645f, 0.051f);
 
-			xAnimTable* wettbl = (xAnimTable*)xSTFindAsset(xStrHash("spongebob_bind.ATBL"));
-			xAnimTable* drytbl = (xAnimTable*)xSTFindAsset(xStrHash("spongebob_bind_treedome.ATBL"));
+            iModelTagSetup(&sSandyLFoot, globals.player.model_sandy->Data, 0.159f, 0.0f, 0.045f);
+            iModelTagSetup(&sSandyRFoot, globals.player.model_sandy->Data, -0.012f, 0.0f, 0.258f);
+            iModelTagSetup(&sSandyLKnee, globals.player.model_sandy->Data, 0.129f, 0.287f, 0.089f);
+            iModelTagSetup(&sSandyRKnee, globals.player.model_sandy->Data, -0.071f, -0.071f, 0.089f);
+            iModelTagSetup(&sSandyRHand, globals.player.model_sandy->Data, -0.642f, 0.747f, 0.006f);
+            iModelTagSetup(&sSandyLHand, globals.player.model_sandy->Data, 0.641f, 0.747f, 0.006f);
+            iModelTagSetup(&sSandyRElbow, globals.player.model_sandy->Data, -0.37f, 0.661f, 0.086f);
+            iModelTagSetup(&sSandyLElbow, globals.player.model_sandy->Data, 0.37f, 0.661f, 0.086f);
+        }
+        else
+        {
+            globals.player.model_sandy = NULL;
+        }
+    }
 
-			if (wettbl && drytbl)
-			{
-				xAnimState* wetstate;
-				xAnimState* drystate = drytbl->StateList;
+    static void** drybob_chgData[64];
+    static void* drybob_oldData[64];
+    static float32* drybob_chgTime[64];
+    static float32 drybob_oldTime[64];
+    static int32 drybob_anim_count = 0;
 
-				while (drystate)
-				{
-					if (!(drystate->UserFlags & 0x40000000))
-					{
-						wetstate = xAnimTableGetState(wettbl, drystate->Name);
+    for (int32 i = 0; i < drybob_anim_count; i++)
+    {
+        *drybob_chgData[i] = drybob_oldData[i];
+        *drybob_chgTime[i] = drybob_oldTime[i];
+    }
 
-						xAnimFile* wetfile = wetstate->Data;
-						xAnimFile* dryfile = drystate->Data;
+    drybob_anim_count = 0;
 
-						int32 aa;
-						int32 numa = wetfile->NumAnims[0] * wetfile->NumAnims[1];
+    {
+        RpAtomic* armL = (RpAtomic*)xSTFindAsset(xStrHash("spongebob_bind_treedome.dff"));
 
-						for (aa = 0; aa < numa; aa++)
-						{
-							drybob_chgData[drybob_anim_count] = &wetfile->RawData[aa];
-							drybob_oldData[drybob_anim_count] = wetfile->RawData[aa];
-							drybob_chgTime[drybob_anim_count] = &wetfile->Duration;
-							drybob_oldTime[drybob_anim_count] = wetfile->Duration;
+        if (armL)
+        {
+            RpAtomic* armR = iModelFile_RWMultiAtomic(armL);
+            RpAtomic* body = iModelFile_RWMultiAtomic(iModelFile_RWMultiAtomic(armR));
 
-							wetfile->RawData[aa] = dryfile->RawData[aa];
+            globals.player.sb_models[SB_MODEL_ARM_L]->Data = armL;
+            globals.player.sb_models[SB_MODEL_ARM_R]->Data = armR;
+            globals.player.sb_models[SB_MODEL_BODY]->Data = body;
 
-							drybob_anim_count++;
-						}
+            xAnimTable* wettbl = (xAnimTable*)xSTFindAsset(xStrHash("spongebob_bind.ATBL"));
+            xAnimTable* drytbl = (xAnimTable*)xSTFindAsset(xStrHash("spongebob_bind_treedome.ATBL"));
 
-						wetfile->Duration = dryfile->Duration;
-					}
+            if (wettbl && drytbl)
+            {
+                xAnimState* wetstate;
+                xAnimState* drystate = drytbl->StateList;
 
-					wetstate = wetstate->Next;
-				}
-			}
-		}
-	}
+                while (drystate)
+                {
+                    if (!(drystate->UserFlags & 0x40000000))
+                    {
+                        wetstate = xAnimTableGetState(wettbl, drystate->Name);
 
-	cruise_bubble::init();
-	load_player_ini();
+                        xAnimFile* wetfile = wetstate->Data;
+                        xAnimFile* dryfile = drystate->Data;
 
-	xEntEnable(ent);
-	xEntShow(ent);
+                        int32 aa;
+                        int32 numa = wetfile->NumAnims[0] * wetfile->NumAnims[1];
 
-	globals.player.Visible = 1;
-	globals.player.AutoMoveSpeed = 0;
+                        for (aa = 0; aa < numa; aa++)
+                        {
+                            drybob_chgData[drybob_anim_count] = &wetfile->RawData[aa];
+                            drybob_oldData[drybob_anim_count] = wetfile->RawData[aa];
+                            drybob_chgTime[drybob_anim_count] = &wetfile->Duration;
+                            drybob_oldTime[drybob_anim_count] = wetfile->Duration;
 
-	ent->pflags &= ~0x4;
-	ent->collis->chk &= ~0x1;
-	ent->update = zEntPlayer_Update;
-	ent->move = zEntPlayer_Move;
-	ent->render = (xEntRenderCallback)zEntPlayer_Render;
-	ent->eventFunc = zEntPlayerEventCB;
+                            wetfile->RawData[aa] = dryfile->RawData[aa];
 
-	if (ent->linkCount != 0)
-	{
-		ent->link = (xLinkAsset*)(asset + 1);
-	}
-	else
-	{
-		ent->link = NULL;
-	}
+                            drybob_anim_count++;
+                        }
 
-	if (globals.sceneCur->baseCount[eBaseTypeGust] != 0)
-	{
-		xFFXAddEffect(ent, zGustUpdateEnt, &gust_data);
-	}
+                        wetfile->Duration = dryfile->Duration;
+                    }
 
-	xFFXRotMatchState* rms = xFFXRotMatchAlloc();
+                    drystate = drystate->Next;
+                }
+            }
+        }
+    }
 
-	if (rms)
-	{
-		rms->max_decl = globals.player.g.RotMatchMaxAngle;
-		rms->tmatch = globals.player.g.RotMatchMatchTime;
-		rms->trelax = globals.player.g.RotMatchRelaxTime;
-		rms->tmr = 0.0f;
+    cruise_bubble::init();
+    load_player_ini();
 
-		xFFXAddEffect(ent, PlayerRotMatchUpdateEnt, rms);
-	}
+    xEntEnable(ent);
+    xEntShow(ent);
 
-	bungee_state::init();
-	oob_state::init();
+    globals.player.Visible = 1;
+    globals.player.AutoMoveSpeed = 0;
 
-	boulderVehicle = NULL;
-	boulderVehicle = (xEntBoulder*)zSceneFindObject(xStrHash("BOULDER_VEHICLE"));
+    ent->pflags &= ~0x4;
+    ent->collis->chk &= ~0x1;
+    ent->update = zEntPlayer_Update;
+    ent->move = zEntPlayer_Move;
+    ent->render = (xEntRenderCallback)zEntPlayer_Render;
+    ent->eventFunc = zEntPlayerEventCB;
 
-	if (boulderVehicle)
-	{
-		boulderVehicle->eventFunc = BoulderVEventCB;
-	}
+    if (ent->linkCount != 0)
+    {
+        ent->link = (xLinkAsset*)(asset + 1);
+    }
+    else
+    {
+        ent->link = NULL;
+    }
 
-	sNumHitches = 0;
-	sHitchAngle = 0.0f;
+    if (globals.sceneCur->baseCount[eBaseTypeGust] != 0)
+    {
+        xFFXAddEffect(ent, zGustUpdateEnt, &gust_data);
+    }
 
-	{
-		uint32 trailerHash = xStrHash("trailer_hitch");
-		
-		for (uint32 i = 0; i < globals.sceneCur->num_ents; i++)
-		{
-			xEnt* hitch = globals.sceneCur->ents[i];
+    xFFXRotMatchState* rms = xFFXRotMatchAlloc();
 
-			if ((hitch->baseType == eBaseTypeDestructObj ||
-				hitch->baseType == eBaseTypePlatform ||
-				hitch->baseType == eBaseTypeStatic) &&
-				hitch->asset->modelInfoID == trailerHash)
-			{
-				sHitch[sNumHitches] = hitch;
-				sNumHitches++;
-			}
-		}
-	}
+    if (rms)
+    {
+        rms->max_decl = globals.player.g.RotMatchMaxAngle;
+        rms->tmatch = globals.player.g.RotMatchMatchTime;
+        rms->trelax = globals.player.g.RotMatchRelaxTime;
+        rms->tmr = 0.0f;
 
-	lastgCurrentPlayer = eCurrentPlayerCount;
+        xFFXAddEffect(ent, PlayerRotMatchUpdateEnt, rms);
+    }
 
-	zEntPlayerPreReset();
-	zEntPlayerReset(ent);
-	zEntPlayer_SNDInit();
+    bungee_state::init();
+    oob_state::init();
 
-	sPlayerDiedLastTime = FALSE;
+    boulderVehicle = NULL;
+    boulderVehicle = (xEntBoulder*)zSceneFindObject(xStrHash("BOULDER_VEHICLE"));
 
-	zEntPlayer_RestoreSounds();
+    if (boulderVehicle)
+    {
+        boulderVehicle->eventFunc = BoulderVEventCB;
+    }
+
+    sNumHitches = 0;
+    sHitchAngle = 0.0f;
+
+    {
+        uint32 trailerHash = xStrHash("trailer_hitch");
+
+        for (uint32 i = 0; i < globals.sceneCur->num_ents; i++)
+        {
+            xEnt* hitch = globals.sceneCur->ents[i];
+
+            if ((hitch->baseType == eBaseTypeDestructObj ||
+                 hitch->baseType == eBaseTypePlatform ||
+                 hitch->baseType == eBaseTypeStatic) &&
+                hitch->asset->modelInfoID == trailerHash)
+            {
+                sHitch[sNumHitches] = hitch;
+                sNumHitches++;
+            }
+        }
+    }
+
+    lastgCurrentPlayer = eCurrentPlayerCount;
+
+    zEntPlayerPreReset();
+    zEntPlayerReset(ent);
+    zEntPlayer_SNDInit();
+
+    sPlayerDiedLastTime = FALSE;
+
+    zEntPlayer_RestoreSounds();
 }
 
 STUB void zEntPlayer_RestoreSounds()
@@ -365,7 +365,7 @@ STUB void zEntPlayer_RestoreSounds()
 
 STUB static bool32 BoulderVEventCB(xBase* from, xBase* to, uint32 toEvent, const float32* toParam, xBase* toParamWidget)
 {
-	return TRUE;
+    return TRUE;
 }
 
 STUB void zEntPlayer_Update(xEnt* ent, xScene* sc, float32 dt)
@@ -405,7 +405,7 @@ STUB void zEntPlayerReset(xEnt* ent)
 
 STUB bool32 zEntPlayerEventCB(xBase* from, xBase* to, uint32 toEvent, const float32* toParam, xBase* toParamWidget)
 {
-	return TRUE;
+    return TRUE;
 }
 
 STUB static void PlayerRotMatchUpdateEnt(xEnt* ent, xScene*, float32 dt, void* fdata)

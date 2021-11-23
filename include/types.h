@@ -46,4 +46,6 @@ typedef int32 bool32;
 #define LITTLE_ENDIAN
 #endif
 
+#define ARRAYCOUNT(a) (sizeof(a) / sizeof(a[0]))
+
 #endif
